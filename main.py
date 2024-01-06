@@ -2,10 +2,11 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from src.routes import contacts
+from src.routes import contacts, auth
 
 app = FastAPI()
 
+app.include_router(auth.router, prefix='/api')
 app.include_router(contacts.router, prefix="/api")
 
 app.mount("/src/static", StaticFiles(directory="src/static"), name="static")
